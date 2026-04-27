@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Love Story 💖</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial;
+      margin-top: 100px;
+      overflow: hidden;
+      background: #fff0f5;
+    }
+
+    h1 {
+      font-size: 40px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 20px;
+      margin: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    #yesBtn {
+      background-color: pink;
+    }
+
+    #noBtn {
+      background-color: lightgray;
+      position: absolute;
+    }
+
+    #letter, #final {
+      display: none;
+      margin-top: 30px;
+    }
+
+    .envelope {
+      font-size: 100px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .envelope:hover {
+      transform: scale(1.2);
+    }
+
+    #final img {
+      width: 200px;
+      margin-top: 20px;
+      animation: pop 1s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0); }
+      100% { transform: scale(1); }
+    }
+
+    .hearts {
+      position: absolute;
+      color: pink;
+      font-size: 20px;
+      animation: float 3s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-200px); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="question">Do you love me? 💖</h1>
+
+  <button id="yesBtn">Yes 😍</button>
+  <button id="noBtn">No 😢</button>
+
+  <!-- Letter screen -->
+  <div id="letter">
+    <h2>Aaw I do more baby 💕<br>Now here’s your gift 🎁</h2>
+    <div class="envelope" id="openLetter">💌</div>
+  </div>
+
+  <!-- Final screen -->
+  <div id="final">
+    <h2>With all my love, kisses 💋 muaaah 😘</h2>
+    <img src="myphoto.jpeg.jpeg" alt="kiss">
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const question = document.getElementById("question");
+    const letter = document.getElementById("letter");
+    const final = document.getElementById("final");
+    const openLetter = document.getElementById("openLetter");
+
+    let yesSize = 20;
+
+    // NO button runs away
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 50);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+
+      yesSize += 5;
+      yesBtn.style.fontSize = yesSize + "px";
+    });
+
+    // YES clicked → show letter
+    yesBtn.addEventListener("click", () => {
+      question.style.display = "none";
+      yesBtn.style.display = "none";
+      noBtn.style.display = "none";
+      letter.style.display = "block";
+    });
+
+    // Open letter → show final kiss
+    openLetter.addEventListener("click", () => {
+      letter.style.display = "none";
+      final.style.display = "block";
+      createHearts();
+    });
+
+    // Floating hearts effect
+    function createHearts() {
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("hearts");
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = window.innerHeight + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 3000);
+      }, 300);
+    }
+  </script>
+
+</body>
+</html>
